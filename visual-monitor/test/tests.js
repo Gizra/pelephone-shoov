@@ -1,6 +1,7 @@
 'use strict';
 
 var shoovWebdrivercss = require('shoov-webdrivercss');
+var projectName = 'Pelephone';
 
 // This can be executed by passing the environment argument like this:
 // PROVIDER_PREFIX=browserstack SELECTED_CAPS=chrome mocha
@@ -9,6 +10,7 @@ var shoovWebdrivercss = require('shoov-webdrivercss');
 
 var capsConfig = {
   'chrome': {
+    project: projectName,
     'browser' : 'Chrome',
     'browser_version' : '42.0',
     'os' : 'OS X',
@@ -16,22 +18,12 @@ var capsConfig = {
     'resolution' : '1024x768'
   },
   'ie11': {
+    project: projectName,
     'browser' : 'IE',
     'browser_version' : '11.0',
     'os' : 'Windows',
     'os_version' : '7',
     'resolution' : '1024x768'
-  },
-  'iphone5': {
-    'browser' : 'Chrome',
-    'browser_version' : '42.0',
-    'os' : 'OS X',
-    'os_version' : 'Yosemite',
-    'chromeOptions': {
-      'mobileEmulation': {
-        'deviceName': 'Apple iPhone 5'
-      }
-    }
   }
 };
 
@@ -61,12 +53,26 @@ describe('Visual monitor testing', function() {
   it('should show the home page',function(done) {
     client
       .url(baseUrl)
+      .pause(5000)
       .webdrivercss(testName + '.homepage', {
         name: '1',
-        exclude: [],
-        remove: [],
-        hide: [],
-        screenWidth: selectedCaps == 'chrome' ? [640, 960, 1200] : undefined,
+        exclude:
+          [
+            // Top carousel.
+            '.marginbottom10',
+            // Sale.
+            '.marginleft11',
+            // Fixing.
+            '.marginbottom10',
+            // whiting song.
+            '.whitingSong .songsWrapper',
+          ],
+        hide:
+          [
+            // selfService.
+            '.selfService .jspPane li a',
+          ],
+        screenWidth: selectedCaps == 'chrome' ? [1200] : undefined,
       }, resultsCallback)
       .call(done);
   });
