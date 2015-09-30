@@ -72,7 +72,7 @@ describe('Visual monitor testing', function() {
             // selfService.
             '.selfService .jspPane li a',
           ],
-        screenWidth: selectedCaps == 'chrome' ? [640, 960, 1200] : undefined,
+        screenWidth: selectedCaps == 'chrome' ? [1200] : undefined,
       }, resultsCallback)
       .call(done);
   });
