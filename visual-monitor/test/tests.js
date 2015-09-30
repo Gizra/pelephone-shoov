@@ -67,7 +67,6 @@ describe('Visual monitor testing', function() {
             // whiting song.
             '.whitingSong .songsWrapper',
           ],
-        remove: [],
         hide:
           [
             // selfService.
